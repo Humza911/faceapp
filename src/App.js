@@ -6,6 +6,7 @@ import Rank from './components/Rank/Rank';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { useEffect, useMemo, useState } from "react";
 import { loadSlim } from "@tsparticles/slim";
+import Clarifai from 'clarifai';
 
 
 function App() {
@@ -32,11 +33,11 @@ function App() {
 
   const options = useMemo(
     () => ({
-      background: {
-        color: {
-          value: "#0d47a1",
-        },
-      },
+      // background: {
+      //   color: {
+      //     value: "#0d47a1",
+      //   },
+      // },
       fpsLimit: 120,
       interactivity: {
         events: {
@@ -101,7 +102,18 @@ function App() {
     }),
     [],
   );
-  return (
+
+  const onInputChange = (event) =>
+  {
+    console.log(event.target.value)
+  }
+
+  const onSubmit = () =>
+  {
+    console.log('Submitted');
+  }
+//
+return (
     <div className="App">
       <Particles
         id="tsparticles"
@@ -111,7 +123,7 @@ function App() {
       <Navigation/>
       <Logo/>
       <Rank/> 
-      <ImageLinkForm/>
+      <ImageLinkForm onInputChange = {onInputChange} onSubmit={onSubmit}/>
       {/* <FaceRecognition/> */}
     </div>
   );

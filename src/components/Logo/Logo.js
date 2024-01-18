@@ -21,7 +21,7 @@ const Logo = () =>
     return(
         <div className="pl4 mt">
         <Tilt className="Tilt " options={defaultOptions} style={{ height: 80, width: 80 }}>
-        <div><img src={brain}></img></div>
+        <div><img alt="" src={brain}/></div>
         </Tilt>
         </div>
     )

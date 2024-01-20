@@ -14,6 +14,7 @@ const App = () => {
   const [init, setInit] = useState(false);
   const [inputUrl, setInputUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [boxes, setBoxes] = useState([]);
   
   
 
@@ -27,7 +28,7 @@ const App = () => {
   }, []);
 
   const particlesLoaded = (container) => {
-    console.log(container);
+    //console.log(container);
   };
 
   const options = useMemo(
@@ -174,14 +175,13 @@ const onInputChange = (event) =>
       })
       .then(result => {
         const regions = result.outputs[0].data.regions;
-  
+        const faceBoxes = regions.map(region=>region.region_info.bounding_box)
         regions.forEach(region => {
           const boundingBox = region.region_info.bounding_box;
           const topRow = boundingBox.top_row.toFixed(3);
           const leftCol = boundingBox.left_col.toFixed(3);
           const bottomRow = boundingBox.bottom_row.toFixed(3);
           const rightCol = boundingBox.right_col.toFixed(3);
-  
           region.data.concepts.forEach(concept => {
             const name = concept.name;
             const value = concept.value.toFixed(4);
@@ -189,9 +189,10 @@ const onInputChange = (event) =>
             console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
           });
         });
-  
+        
         setImageUrl(inputUrl);
         
+        setBoxes(faceBoxes);
       })
       .catch(error => console.error('Error:', error));
   };
@@ -227,6 +228,8 @@ const requestOptions = {
 // this will default to the latest version_id
 //
 
+
+
   return (
       <div className="App">
         <Particles
@@ -238,7 +241,7 @@ const requestOptions = {
         <Logo/>
         <Rank/> 
         <ImageLinkForm onInputChange = {onInputChange} onSubmit={onSubmit}/>
-        <Facerecognition imageUrl={imageUrl} />
+        <Facerecognition imageUrl={imageUrl} boxes={boxes} />
       </div>
   );
 }

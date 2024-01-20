@@ -4,7 +4,7 @@ import 'tachyons';
 const FaceRecognition = ({ imageUrl, boxes }) => {
   return (
     <div className="center" style={{ position: 'relative', maxWidth: '800px', margin: 'auto' }}>
-      <img alt="" src={imageUrl} style={{ width: '100%', height: 'auto', display: 'block', margin: 'auto' }}
+      <img alt="" src={imageUrl} style={{ width: '1000px', height: 'auto', display: 'block', margin: 'auto' }}
       />
       {boxes.map((box, index) => (
         <div

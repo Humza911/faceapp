@@ -7,7 +7,9 @@ import Rank from './components/Rank/Rank';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { useEffect, useMemo, useState} from "react";
 import { loadSlim } from "@tsparticles/slim";
-import Clarifai from 'clarifai';
+import Signin from './components/Signin/Signin';
+import Register from './components/Facerecognition/Register/Register';
+//import Clarifai from 'clarifai';
 
  
 const App = () => {
@@ -15,7 +17,8 @@ const App = () => {
   const [inputUrl, setInputUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [boxes, setBoxes] = useState([]);
-  
+  const [route, setRoute] = useState("signin");
+  const [signIn, setSignIn] = useState(false)
   
 
 // this should be run only once per application lifetime
@@ -228,6 +231,19 @@ const requestOptions = {
 // this will default to the latest version_id
 //
 
+//Routing
+
+const onRouteChange = (route) =>
+{
+  if(route==='signin'){
+    setSignIn(false)
+  }
+  else if(route==='home'){
+    setSignIn(true)    
+  }
+  setRoute(route);
+  console.log(route, signIn);
+}
 
 
   return (
@@ -237,11 +253,19 @@ const requestOptions = {
           particlesLoaded={particlesLoaded}
           options={options}
         />
-        <Navigation/>
-        <Logo/>
-        <Rank/> 
-        <ImageLinkForm onInputChange = {onInputChange} onSubmit={onSubmit}/>
-        <Facerecognition imageUrl={imageUrl} boxes={boxes} />
+          <Navigation onRouteChange={onRouteChange} signIn={signIn}/>
+          
+          { route==='home'?
+            <>
+            <Logo/>
+            <Rank/> 
+            <ImageLinkForm onInputChange = {onInputChange} onSubmit={onSubmit}/>
+            <Facerecognition imageUrl={imageUrl} boxes={boxes}/>
+            </>            
+            : (route==='signin')?            
+            <Signin onRouteChange={onRouteChange} setSignIn={signIn}/>
+            : <Register onRouteChange={onRouteChange} setSignIn={signIn}/>            
+          }
       </div>
   );
 }

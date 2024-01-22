@@ -242,7 +242,6 @@ const onRouteChange = (route) =>
     setSignIn(true)    
   }
   setRoute(route);
-  console.log(route, signIn);
 }
 
 

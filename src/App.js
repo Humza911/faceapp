@@ -18,8 +18,17 @@ const App = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [boxes, setBoxes] = useState([]);
   const [route, setRoute] = useState("signin");
-  const [signIn, setSignIn] = useState(false)
+  const [signIn, setSignIn] = useState(false);
   
+//Connection with server
+
+useEffect(()=>{
+  const fetchData = async () =>{
+    const response = await fetch('http://localhost:3000')
+    //const data = await response.json();
+  }
+  fetchData();
+}, []);
 
 // this should be run only once per application lifetime
   useEffect(() => {
@@ -239,8 +248,9 @@ const onRouteChange = (route) =>
     setSignIn(false)
   }
   else if(route==='home'){
-    setSignIn(true)    
-  }
+    setSignIn(true)
+        
+  }  
   setRoute(route);
 }
 

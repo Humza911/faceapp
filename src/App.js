@@ -8,7 +8,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { useEffect, useMemo, useState} from "react";
 import { loadSlim } from "@tsparticles/slim";
 import Signin from './components/Signin/Signin';
-import Register from './components/Facerecognition/Register/Register';
+import Register from './components/Register/Register';
 //import Clarifai from 'clarifai';
 
  
@@ -19,6 +19,15 @@ const App = () => {
   const [boxes, setBoxes] = useState([]);
   const [route, setRoute] = useState("signin");
   const [signIn, setSignIn] = useState(false);
+  const [userProfile, setuserProfile] = useState(
+    {
+      id: '',
+      name: '',
+      email: '',
+      entries: '',
+      joined: '',
+    }
+  );
   
 //Connection with server
 
@@ -254,6 +263,19 @@ const onRouteChange = (route) =>
   setRoute(route);
 }
 
+const loadUser = (data) => {
+  console.log('Data:', data);
+  setuserProfile([
+    userProfile.id = data.id,
+    userProfile.name = data.name,
+    userProfile.email = data.email,
+    userProfile.entries = data.entries,
+    userProfile.joined = data.joined,]
+  );
+  console.log('User:', userProfile);
+};  
+
+
 
   return (
       <div className="App">
@@ -273,7 +295,7 @@ const onRouteChange = (route) =>
             </>            
             : (route==='signin')?            
             <Signin onRouteChange={onRouteChange} setSignIn={signIn}/>
-            : <Register onRouteChange={onRouteChange} setSignIn={signIn}/>            
+            : <Register onRouteChange={onRouteChange} loadUser={loadUser}/>            
           }
       </div>
   );

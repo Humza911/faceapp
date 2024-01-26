@@ -264,16 +264,15 @@ const onRouteChange = (route) =>
 }
 
 const loadUser = (data) => {
-  setuserProfile([
-    userProfile.id = data.id,
-    userProfile.name = data.name,
-    userProfile.email = data.email,
-    userProfile.entries = data.entries,
-    userProfile.joined = data.joined,]
+  setuserProfile({
+    id: data.id,
+    name: data.name,
+    email: data.email,
+    entries: data.entries,
+    joined: data.joined,}
   );
+  console.log(userProfile.name, userProfile.entries)
 };  
-
-
 
   return (
       <div className="App">
@@ -287,7 +286,7 @@ const loadUser = (data) => {
           { route==='home'?
             <>
             <Logo/>
-            <Rank/> 
+            <Rank username = {userProfile.name} userrank = {userProfile.entries}/> 
             <ImageLinkForm onInputChange = {onInputChange} onSubmit={onSubmit}/>
             <Facerecognition imageUrl={imageUrl} boxes={boxes}/>
             </>            

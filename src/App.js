@@ -264,7 +264,6 @@ const onRouteChange = (route) =>
 }
 
 const loadUser = (data) => {
-  console.log('Data:', data);
   setuserProfile([
     userProfile.id = data.id,
     userProfile.name = data.name,
@@ -272,7 +271,6 @@ const loadUser = (data) => {
     userProfile.entries = data.entries,
     userProfile.joined = data.joined,]
   );
-  console.log('User:', userProfile);
 };  
 
 
@@ -294,7 +292,7 @@ const loadUser = (data) => {
             <Facerecognition imageUrl={imageUrl} boxes={boxes}/>
             </>            
             : (route==='signin')?            
-            <Signin onRouteChange={onRouteChange} setSignIn={signIn}/>
+            <Signin onRouteChange={onRouteChange} setSignIn={signIn} loadUser={loadUser}/>
             : <Register onRouteChange={onRouteChange} loadUser={loadUser}/>            
           }
       </div>

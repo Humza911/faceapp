@@ -17,7 +17,7 @@ const Signin = ({onRouteChange, loadUser}) =>
         })
         const data = await response.json();
         console.log(data);    
-        if (data)
+        if (data!=='User not found')
             {
                 loadUser(data);
                 onRouteChange('home');

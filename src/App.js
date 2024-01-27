@@ -211,9 +211,23 @@ const onInputChange = (event) =>
           });
         });
         
-        setImageUrl(inputUrl);
         
+       
+       const imageEntry = {
+          method: 'put',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+              id : userProfile.id,  
+          })
+        }
+      
+
+        fetch('http://localhost:3000/image',imageEntry).then(response => response.json()
+        .then(entrycount => {Object.assign(userProfile,{entries: entrycount});
+        setImageUrl(inputUrl);        
         setBoxes(faceBoxes);
+        }))
+
       })
       .catch(error => console.error('Error:', error));
   };
@@ -271,7 +285,6 @@ const loadUser = (data) => {
     entries: data.entries,
     joined: data.joined,}
   );
-  console.log(userProfile.name, userProfile.entries)
 };  
 
   return (

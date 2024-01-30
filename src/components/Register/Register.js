@@ -19,11 +19,16 @@ const Register = ({onRouteChange, loadUser}) =>
         })
         const user = await response.json();
     
-        if (user)
+        if (user==='Unable to Register')
             {
-                loadUser(user);
-                onRouteChange('home');
+                console.log('Duplicate User')
             }
+        else 
+        {
+            loadUser(user);
+            onRouteChange('home');
+        }
+        
     }
 
     const onNameChange = (event) =>

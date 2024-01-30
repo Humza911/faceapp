@@ -21,7 +21,7 @@ const App = () => {
   const [signIn, setSignIn] = useState(false);
   const [userProfile, setuserProfile] = useState(
     {
-      id: '',
+      Id: '',
       name: '',
       email: '',
       entries: '',
@@ -217,7 +217,7 @@ const onInputChange = (event) =>
           method: 'put',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify({
-              id : userProfile.id,  
+              Id : userProfile.Id,  
           })
         }
       
@@ -279,7 +279,7 @@ const onRouteChange = (route) =>
 
 const loadUser = (data) => {
   setuserProfile({
-    id: data.id,
+    Id: data.Id,
     name: data.name,
     email: data.email,
     entries: data.entries,

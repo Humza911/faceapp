@@ -17,13 +17,14 @@ const Signin = ({onRouteChange, loadUser}) =>
         })
         const data = await response.json();
         console.log(data);    
-        if (data==='User not found'||data==='wrong credentials')
+        if (data.Id)
             {
-                onRouteChange('signin');
+                loadUser(data);
+                onRouteChange('home');                
             }
             else{
-                loadUser(data);
-                onRouteChange('home');
+                onRouteChange('signin');
+
             }
     }
 

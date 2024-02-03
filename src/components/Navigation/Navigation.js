@@ -1,12 +1,12 @@
 import React from "react";
 
-const Navigation = ({onRouteChange, signIn}) => 
+const Navigation = ({onRouteChange, signIn, initialState}) => 
 {
     if(signIn)
     {
         return(
             <nav style={{display: 'flex', justifyContent:'flex-end', padding:30}}>
-            <button onClick={()=>onRouteChange('signin')} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-light-purple bn">Sign Out</button>
+            <button onClick={()=>{onRouteChange('signin');initialState();}} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-light-purple bn">Sign Out</button>
             </nav>
         )
     }

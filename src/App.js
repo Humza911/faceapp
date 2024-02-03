@@ -21,13 +21,22 @@ const App = () => {
   const [signIn, setSignIn] = useState(false);
   const [userProfile, setuserProfile] = useState(
     {
-      Id: '',
-      name: '',
-      email: '',
-      entries: '',
-      joined: '',
+      Id: "",
+      name: "",
+      email: "",
+      entries: "",
+      joined: "",
     }
   );
+
+  const initialState = () =>
+  {
+    setInputUrl('');
+    setImageUrl('');
+    setBoxes([]);
+    setSignIn(false);
+    setuserProfile({id:"", name: "", email: "", entries: "",joined: "",} )
+  }
   
 //Connection with server
 
@@ -294,7 +303,7 @@ const loadUser = (data) => {
           particlesLoaded={particlesLoaded}
           options={options}
         />
-          <Navigation onRouteChange={onRouteChange} signIn={signIn}/>
+          <Navigation onRouteChange={onRouteChange} signIn={signIn} initialState={initialState}/>
           
           { route==='home'?
             <>

@@ -2,11 +2,15 @@ import React, { useState } from "react";
 
 const Signin = ({onRouteChange, loadUser}) => 
 {
-    const [signinemail, setemail] = useState('yo name');
-    const [signinpass, setpass] = useState('yo pass');
+    const [signinemail, setemail] = useState('');
+    const [signinpass, setpass] = useState('');
     
     const onSignin = async () =>
     {
+        if (signinemail.trim() === '' || signinpass.trim() === '') {
+            return console.log('Please fill in all fields');
+            // Exit the function if any field is empty
+        }
         const response = await fetch('http://localhost:3000/signin',{
             method: 'post',
             headers:{'Content-Type':'application/json'},

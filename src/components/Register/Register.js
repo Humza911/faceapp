@@ -7,8 +7,8 @@ const Register = ({ onRouteChange, loadUser }) => {
 
     const onRegister = async () => {
         if (regname.trim() === '' || regemail.trim() === '' || regpass.trim() === '') {
-            console.log('Please fill in all fields');
-            return; // Exit the function if any field is empty
+            return console.log('Please fill in all fields');
+            // Exit the function if any field is empty
         }       
         
         try {
@@ -27,7 +27,6 @@ const Register = ({ onRouteChange, loadUser }) => {
             // }
 
             const user = await response.json();
-           
             if (user === 'User already exists') {
                 throw new Error(user);
             } else {

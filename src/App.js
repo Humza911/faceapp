@@ -235,8 +235,7 @@ const onInputChange = (event) =>
         .then(entrycount => {Object.assign(userProfile,{entries: entrycount});
         setImageUrl(inputUrl);        
         setBoxes(faceBoxes);
-        }))
-
+        })).catch(error => console.error('Error:', error));
       })
       .catch(error => console.error('Error:', error));
   };

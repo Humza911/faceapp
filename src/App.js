@@ -169,7 +169,15 @@ const onInputChange = (event) =>
       console.log('URL is empty');
       return;
     }
-  
+    
+    fetch('http://localhost:3000/imageurl', {
+      method: 'post',
+      headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+              inputUrl : userProfile.inputUrl,  
+          })
+      }) 
+
     const raw = JSON.stringify({
       "user_app_id": {
         "user_id": USER_ID,
@@ -195,7 +203,12 @@ const onInputChange = (event) =>
       },
       body: raw
     };
-  
+    fetch('http://localhost:3000/image',imageEntry).then(response => response.json()
+        .then(entrycount => {Object.assign(userProfile,{entries: entrycount});
+        setImageUrl(inputUrl);        
+        setBoxes(faceBoxes);
+        })).catch(error => console.error('Error:', error));
+
     fetch(`https://api.clarifai.com/v2/models/${MODEL_ID}/versions/${MODEL_VERSION_ID}/outputs`, requestOptions)
       .then(response => {
         if (!response.ok) {
@@ -203,68 +216,59 @@ const onInputChange = (event) =>
         }
         return response.json();
       })
-      .then(result => {
-        const regions = result.outputs[0].data.regions;
-        const faceBoxes = regions.map(region=>region.region_info.bounding_box)
-        regions.forEach(region => {
-          const boundingBox = region.region_info.bounding_box;
-          const topRow = boundingBox.top_row.toFixed(3);
-          const leftCol = boundingBox.left_col.toFixed(3);
-          const bottomRow = boundingBox.bottom_row.toFixed(3);
-          const rightCol = boundingBox.right_col.toFixed(3);
-          region.data.concepts.forEach(concept => {
-            const name = concept.name;
-            const value = concept.value.toFixed(4);
+      // .then(result => {
+      //   const regions = result.outputs[0].data.regions;
+      //   const faceBoxes = regions.map(region=>region.region_info.bounding_box)
+      //   regions.forEach(region => {
+      //     const boundingBox = region.region_info.bounding_box;
+      //     const topRow = boundingBox.top_row.toFixed(3);
+      //     const leftCol = boundingBox.left_col.toFixed(3);
+      //     const bottomRow = boundingBox.bottom_row.toFixed(3);
+      //     const rightCol = boundingBox.right_col.toFixed(3);
+      //     region.data.concepts.forEach(concept => {
+      //       const name = concept.name;
+      //       const value = concept.value.toFixed(4);
   
-            console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
-          });
-        });
-        
-        
+      //       //console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
+      //     });
+      //   });     
        
-       const imageEntry = {
-          method: 'put',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({
-              Id : userProfile.Id,  
-          })
-        }
-      
-
-        fetch('http://localhost:3000/image',imageEntry).then(response => response.json()
-        .then(entrycount => {Object.assign(userProfile,{entries: entrycount});
-        setImageUrl(inputUrl);        
-        setBoxes(faceBoxes);
-        })).catch(error => console.error('Error:', error));
-      })
+      //  const imageEntry = {
+      //     method: 'put',
+      //     headers:{'Content-Type':'application/json'},
+      //     body: JSON.stringify({
+      //         Id : userProfile.Id,  
+      //     })
+      //   }       
+      // })
       .catch(error => console.error('Error:', error));
   };
 
-  const raw = JSON.stringify({
-    "user_app_id": {
-        "user_id": USER_ID,
-        "app_id": APP_ID
-    },
-    "inputs": [
-        {
-            "data": {
-                "image": {
-                    "url": imageUrl
-                    // "base64": IMAGE_BYTES_STRING
-                }
-            }
-        }
-    ]
-});
+//   const raw = JSON.stringify({
+//     "user_app_id": {
+//         "user_id": USER_ID,
+//         "app_id": APP_ID
+//     },
+//     "inputs": [
+//         {
+//             "data": {
+//                 "image": {
+//                     "url": imageUrl
+//                     // "base64": IMAGE_BYTES_STRING
+//                 }
+//             }
+//         }
+//     ]
+// });
 
-const requestOptions = {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Key ' + PAT
-    },
-    body: raw
-};
+// const requestOptions = {
+//     method: 'POST',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Authorization': 'Key ' + PAT
+//     },
+//     body: raw
+// };
 
 // NOTE: MODEL_VERSION_ID is optional, you can also call prediction with the MODEL_ID only
 // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs

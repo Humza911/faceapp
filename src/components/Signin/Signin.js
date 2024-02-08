@@ -19,8 +19,7 @@ const Signin = ({onRouteChange, loadUser}) =>
                 password: signinpass,
             })
         })
-        const data = await response.json();
-        console.log(data);    
+        const data = await response.json();    
         if (data.Id)
             {
                 loadUser(data);

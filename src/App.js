@@ -42,7 +42,7 @@ const App = () => {
 
 useEffect(()=>{
   const fetchData = async () =>{
-    const response = await fetch('http://localhost:3000')
+    const response = await fetch('https://myfaceappbe.onrender.com')
     //const data = await response.json();
   }
   fetchData();
@@ -154,7 +154,7 @@ const onInputChange = (event) =>
       })
     }  
 
-    fetch('http://localhost:3000/imageurl', imageUrlentry)
+    fetch('https://myfaceappbe.onrender.com/imageurl', imageUrlentry)
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -185,7 +185,7 @@ const onInputChange = (event) =>
             Id : userProfile.Id,  
         })
       }  
-      fetch('http://localhost:3000/image',imageEntry).then(response => response.json()
+      fetch('https://myfaceappbe.onrender.com/image',imageEntry).then(response => response.json()
       .then(entrycount => {Object.assign(userProfile,{entries: entrycount});        
       setBoxes(faceBoxes);
       })).catch(error => console.error('Error:', error));

@@ -186,7 +186,7 @@ const onInputChange = (event) =>
         })
       }  
 
-      console.log(imageEntry);
+      
       fetch('https://myfaceappbe.onrender.com/image',imageEntry).then(response => response.json()
       .then(entrycount => {Object.assign(userProfile,{entries: entrycount});        
       setBoxes(faceBoxes);

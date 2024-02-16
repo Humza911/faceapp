@@ -182,7 +182,7 @@ const onInputChange = (event) =>
         method: 'put',
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({
-            id : userProfile.Id 
+            id : userProfile.id 
         })
       }  
       fetch('https://myfaceappbe.onrender.com/image',imageEntry).then(response => response.json()

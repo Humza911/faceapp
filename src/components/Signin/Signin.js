@@ -20,7 +20,7 @@ const Signin = ({onRouteChange, loadUser}) =>
             })
         })
         const data = await response.json();    
-        if (data.Id)
+        if (data.id)
             {
                 loadUser(data);
                 onRouteChange('home');                

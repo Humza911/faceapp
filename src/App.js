@@ -21,7 +21,7 @@ const App = () => {
   const [signIn, setSignIn] = useState(false);
   const [userProfile, setuserProfile] = useState(
     {
-      Id: "",
+      id: "",
       name: "",
       email: "",
       entries: "",
@@ -279,7 +279,7 @@ const onRouteChange = (route) =>
 
 const loadUser = (data) => {
   setuserProfile({
-    Id: data.Id,
+    id: data.id,
     name: data.name,
     email: data.email,
     entries: data.entries,
